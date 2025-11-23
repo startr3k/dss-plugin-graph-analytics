@@ -61,4 +61,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return "Refresh again", 500
+        return data +str(e), 500
