@@ -37,19 +37,19 @@ def get_graph_data():
 
         s = "1"
         scale_ratio = float(data.get('scale_ratio', 1))
-
+        s = "2"
         dataset_name = config.get('dataset_name')
-
+        s = "3"
         df = dataiku.Dataset(dataset_name).get_dataframe(limit=100000)
         if df.empty:
             raise Exception("Dataframe is empty")
 
         if len(filters) > 0:  # apply filters to dataframe
-            s = "2"
+            s = "4"
             df = filter_dataframe(df, filters)
 
         graph = Graph(config)
-        s = "3"
+        s = "5"
         graph.create_graph(df)
 
         scale = np.sqrt(len(graph.nodes)) * 100
