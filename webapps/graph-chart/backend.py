@@ -61,4 +61,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return s +str(e), 500
+        return config +str(e), 500
