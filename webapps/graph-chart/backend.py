@@ -21,7 +21,7 @@ def get_graph_data():
 
         # Flask's built-in way to parse JSON requests
         # It handles decoding and content-type checks automatically
-        data = request.get_json(force=True)  
+        data = request.get_json(silent=True)  
         if data is None:
             raise Exception("Invalid or missing JSON payload")
 
@@ -61,4 +61,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return data +str(e), 500
+        return str(e), 500
