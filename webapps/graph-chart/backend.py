@@ -17,7 +17,7 @@ def convert_numpy_int64_to_int(o):
 @app.route('/get_graph_data', methods=['POST'])
 def get_graph_data():
     try:
-        data = json.loads(request.data)
+        data = json.loads(request.data.decode('utf-8'))
 
         config = json.loads(data.get('config', None))
         filters = json.loads(data.get('filters', None))
