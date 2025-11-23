@@ -20,14 +20,20 @@ def get_graph_data():
 
         # Flask's built-in way to parse JSON requests
         # It handles decoding and content-type checks automatically
-        data = request.get_json(force=True) 
-        
-        # It's good practice to ensure data isn't None if parsing failed
+        data = request.get_json(force=True)  
         if data is None:
             raise Exception("Invalid or missing JSON payload")
 
-        config = json.loads(data.get('config', None))
-        filters = json.loads(data.get('filters', None))
+        config_val = data.get('config', '{}')
+        if isinstance(config_val, bytes):
+            config_val = config_val.decode('utf-8')
+        config = json.loads(config_val)
+
+        filters_val = data.get('filters', '[]')
+        if isinstance(filters_val, bytes):
+            filters_val = filters_val.decode('utf-8')
+        filters = json.loads(filters_val)
+
         scale_ratio = float(data.get('scale_ratio', 1))
 
         dataset_name = config.get('dataset_name')
@@ -51,4 +57,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return "Updated error " +str(e), 500
+        return str(e), 500
