@@ -16,6 +16,7 @@ def convert_numpy_int64_to_int(o):
 
 @app.route('/get_graph_data', methods=['POST'])
 def get_graph_data():
+    s = ""
     try:
 
         # Flask's built-in way to parse JSON requests
@@ -34,6 +35,7 @@ def get_graph_data():
             filters_val = filters_val.decode('utf-8')
         filters = json.loads(filters_val)
 
+        s = "1"
         scale_ratio = float(data.get('scale_ratio', 1))
 
         dataset_name = config.get('dataset_name')
@@ -43,9 +45,11 @@ def get_graph_data():
             raise Exception("Dataframe is empty")
 
         if len(filters) > 0:  # apply filters to dataframe
+            s = "2"
             df = filter_dataframe(df, filters)
 
         graph = Graph(config)
+        s = "3"
         graph.create_graph(df)
 
         scale = np.sqrt(len(graph.nodes)) * 100
@@ -57,4 +61,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return str(e), 500
+        return s +str(e), 500
