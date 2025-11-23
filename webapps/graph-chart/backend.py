@@ -51,4 +51,4 @@ def get_graph_data():
 
     except Exception as e:
         logging.error(traceback.format_exc())
-        return str(e), 500
+        return "Updated error " +str(e), 500
