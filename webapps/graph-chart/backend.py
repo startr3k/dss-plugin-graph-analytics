@@ -17,7 +17,14 @@ def convert_numpy_int64_to_int(o):
 @app.route('/get_graph_data', methods=['POST'])
 def get_graph_data():
     try:
-        data = json.loads(request.data.decode('utf-8'))
+
+        # Flask's built-in way to parse JSON requests
+        # It handles decoding and content-type checks automatically
+        data = request.get_json(force=True) 
+        
+        # It's good practice to ensure data isn't None if parsing failed
+        if data is None:
+            raise Exception("Invalid or missing JSON payload")
 
         config = json.loads(data.get('config', None))
         filters = json.loads(data.get('filters', None))
