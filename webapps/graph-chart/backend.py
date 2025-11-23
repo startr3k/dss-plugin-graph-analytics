@@ -23,7 +23,7 @@ def get_graph_data():
         # It handles decoding and content-type checks automatically
         data = request.get_json(silent=True)  
         if data is None:
-            return "Invalid or missing JSON payload", 500
+            raise Exception("Invalid or missing JSON payload")
 
         config_val = data.get('config', '{}')
         if isinstance(config_val, bytes):
